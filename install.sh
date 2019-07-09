@@ -76,3 +76,18 @@ else
     rm Dockerfile
 fi
 
+#Deploy Image
+echo -e "\nDeploying nginx-ip-responder to port 30080"
+kubectl apply -f https://raw.githubusercontent.com/trentdavida/opsmx-technical-assessment/master/ip-responder.yaml
+
+#Test Deployment
+echo -e "\nTesting service at 0.0.0:30080"
+curl 0.0.0.0:30080 > output.txt
+if grep "Your IP Address is " "output.txt"; then
+  echo -e "\nSuccess!\n\nDeployment Complete.";
+  exit 0;
+else
+  echo -e "\nFailure. Test produced unexpected result: "
+  cat output.txt;
+  exit 1;
+fi
