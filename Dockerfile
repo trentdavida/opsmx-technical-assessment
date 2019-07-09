@@ -7,7 +7,7 @@ RUN { \
         echo; \
         echo '    location / {'; \
         echo '        default_type text/plain;'; \
-        echo '        return 200 "Your IP is $remote_addr\n";'; \
+        echo '        return 200 "Your IP Address is $remote_addr\n";'; \
         echo '    }'; \
         echo '}'; \
     } > /etc/nginx/conf.d/default.conf
