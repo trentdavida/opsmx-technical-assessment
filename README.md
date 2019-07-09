@@ -3,4 +3,4 @@ Ops Mx Technical Assessment
 
 ## Execution
 on Ubuntu 16/18
-`sudo apt update && sudo apt install -y curl && curl -LJO https://raw.githubusercontent.com/trentdavida/opsmx-technical-assessment/master/Dockerfile`
+`wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/trentdavida/opsmx-technical-assessment/master/install.sh && chmod +x install.sh && ./install.sh`
