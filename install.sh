@@ -67,7 +67,7 @@ fi
 
 #Check for Test Image
 echo -e "\nChecking for Test Nginx Image: ";
-if [[ $(docker images | grep nginx-ip-responder) ]]; then
+if [[ $(sudo docker images | grep nginx-ip-responder) ]]; then
     echo -e "Found nginx-ip-responder image\n";
 else
     echo -e "Building nginx-ip-responder image"
@@ -79,9 +79,13 @@ fi
 #Deploy Image
 echo -e "\nDeploying nginx-ip-responder to port 30080"
 kubectl apply -f https://raw.githubusercontent.com/trentdavida/opsmx-technical-assessment/master/ip-responder.yaml
+until $(kubectl get pods -l app=ip-responder | grep -q Running); do
+    echo "Waiting for pod to Start.";
+    sleep 5;
+done
 
 #Test Deployment
-echo -e "\nTesting service at 0.0.0:30080"
+echo -e "\nTesting service at 0.0.0.0:30080"
 curl 0.0.0.0:30080 > output.txt
 if grep "Your IP Address is " "output.txt"; then
   echo -e "\nSuccess!\n\nDeployment Complete.";
